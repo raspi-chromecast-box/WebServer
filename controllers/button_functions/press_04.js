@@ -19,6 +19,6 @@ function EXEC( command ) {
 };
 
 function PRESS_BUTTON_4() {
-    EXEC( "/home/morphs/WORKSPACE/NODE/Commands/Spotify/Play.py --uri 'spotify:playlist:4PYhhcYPgUi9LXU9uiEATe'" )
+    EXEC( "youtube-dl -o - https://www.youtube.com/watch?v=_dypVv0NouI | castnow --address 192.168.1.101 --quiet -" )
 }
 module.exports = PRESS_BUTTON_4;

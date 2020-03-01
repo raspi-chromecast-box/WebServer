@@ -1,71 +1,17 @@
 //function sendJSONResponse( res , status , content ) { if ( status ) { res.status( status ); } res.json( content ); }
-const child = require( "child_process" );
-const exec = child.execSync;
 
-function EXEC( command ) {
-	try {
-		let result;
-		try { result = exec( command ); }
-		catch( error ) { console.log( error ); return false; }
-		if ( result ) {
-			result = result.toString();
-			if ( result ) {
-				result = result.trim();
-				console.log( result );
-			}
-		}
-		return true;
-	}
-	catch( error ) { console.log( error ); return false; }
-};
-
-function PRESS_BUTTON_1() {
-	EXEC( "/home/morphs/WORKSPACE/NODE/Commands/Spotify/Play.py" )
-}
-
-function PRESS_BUTTON_2() {
-	EXEC( "/home/morphs/WORKSPACE/NODE/Commands/Spotify/Play.py --uri 'spotify:playlist:4PYhhcYPgUi9LXU9uiEATe'" )
-}
-
-function PRESS_BUTTON_3() {
-	EXEC( "/home/morphs/WORKSPACE/NODE/Commands/Spotify/Play.py" )
-}
-
-function PRESS_BUTTON_4() {
-	EXEC( "/home/morphs/WORKSPACE/NODE/Commands/Spotify/Play.py" )
-}
-
-function PRESS_BUTTON_5() {
-	EXEC( "/home/morphs/WORKSPACE/NODE/Commands/Spotify/Play.py" )
-}
-
-function PRESS_BUTTON_6() {
-	EXEC( "/home/morphs/WORKSPACE/NODE/Commands/Spotify/Play.py" )
-}
-
-function PRESS_BUTTON_7() {
-	EXEC( "/home/morphs/WORKSPACE/NODE/Commands/Spotify/Play.py" )
-}
-
-function PRESS_BUTTON_8() {
-	EXEC( "/home/morphs/WORKSPACE/NODE/Commands/Spotify/Play.py" )
-}
-
-function PRESS_BUTTON_9() {
-	EXEC( "/home/morphs/WORKSPACE/NODE/Commands/Spotify/Play.py" )
-}
-
-function PRESS_BUTTON_10() {
-	EXEC( "/home/morphs/WORKSPACE/NODE/Commands/Spotify/Play.py" )
-}
-
-function PRESS_BUTTON_11() {
-	EXEC( "/home/morphs/WORKSPACE/NODE/Commands/Spotify/Play.py" )
-}
-
-function PRESS_BUTTON_12() {
-	EXEC( "/home/morphs/WORKSPACE/NODE/Commands/Spotify/Play.py" )
-}
+const PRESS_BUTTON_1 = require( "./button_functions/press_01.js" );
+const PRESS_BUTTON_2 = require( "./button_functions/press_02.js" );
+const PRESS_BUTTON_3 = require( "./button_functions/press_03.js" );
+const PRESS_BUTTON_4 = require( "./button_functions/press_04.js" );
+const PRESS_BUTTON_5 = require( "./button_functions/press_05.js" );
+const PRESS_BUTTON_6 = require( "./button_functions/press_06.js" );
+const PRESS_BUTTON_7 = require( "./button_functions/press_07.js" );
+const PRESS_BUTTON_8 = require( "./button_functions/press_08.js" );
+const PRESS_BUTTON_9 = require( "./button_functions/press_09.js" );
+const PRESS_BUTTON_10 = require( "./button_functions/press_10.js" );
+const PRESS_BUTTON_11 = require( "./button_functions/press_11.js" );
+const PRESS_BUTTON_12 = require( "./button_functions/press_12.js" );
 
 module.exports.press = ( req , res )=> {
 	console.log( "POST --> /button" );
@@ -110,9 +56,8 @@ module.exports.press = ( req , res )=> {
 			}
 		}
 	}
-	console.log( req.body );
 	res.status( 200 );
-	res.json( { result: "success" } );
+	res.json( { result: "success" , "req.body": req.body } );
 };
 
 module.exports.press_1 = ( req , res )=> {

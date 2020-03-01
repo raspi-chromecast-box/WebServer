@@ -19,19 +19,29 @@ function EXEC( command ) {
 	catch( error ) { console.log( error ); return false; }
 };
 
+function PRESS_BUTTON_1() {
+	EXEC( "/home/morphs/WORKSPACE/NODE/Commands/Spotify/Play.py" )
+}
 
 module.exports.press = ( req , res )=> {
 	console.log( "POST --> /button" );
-	console.log( req.body )
+	if ( req.body ) {
+		if ( req.body.button_number ) {
+			if ( req.body.button_number === "1" || req.body.button_number === 1 ) {
+				PRESS_BUTTON_1();
+			}
+		}
+	}
+	console.log( req.body );
 	res.status( 200 );
 	res.json( { result: "success" } );
 };
 
 module.exports.press_1 = ( req , res )=> {
 	console.log( "GET --> /button/1" );
+	PRESS_BUTTON_1();
 	res.status( 200 );
 	res.json( { result: "Pressed Button 1!" } );
-	EXEC( "/home/morphs/WORKSPACE/NODE/Commands/Spotify/Play.py" )
 };
 
 module.exports.press_2 = ( req , res )=> {

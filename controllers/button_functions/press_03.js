@@ -19,6 +19,6 @@ function EXEC( command ) {
 };
 
 function PRESS_BUTTON_3() {
-    EXEC( "/home/morphs/WORKSPACE/NODE/Commands/Spotify/Play.py --uri 'spotify:playlist:4PYhhcYPgUi9LXU9uiEATe'" )
+    EXEC( "castnow --address 192.168.1.101 `youtube-dl -g https://www.twitch.tv/chessbrah`" )
 }
 module.exports = PRESS_BUTTON_3;

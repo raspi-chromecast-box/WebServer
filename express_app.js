@@ -51,6 +51,10 @@ app.get( "/" , function( req , res , next ) {
 //     res.render( "form_controller.html" );
 // });
 
+// Physical Button Press Routes
+const button_routes = require( "./routes/buttons.js" );
+app.use( "/button/" , button_routes );
+
 // Command-Routes
 const command_routes = require( "./routes/commands.js" );
 app.use( "/commands/" , command_routes );

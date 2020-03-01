@@ -19,6 +19,7 @@ function EXEC( command ) {
 };
 
 function PRESS_BUTTON_4() {
-    EXEC( "youtube-dl -o - https://www.youtube.com/watch?v=_dypVv0NouI | castnow --address 192.168.1.101 --quiet -" )
+    //EXEC( "youtube-dl -o - https://www.youtube.com/watch?v=_dypVv0NouI | castnow --address 192.168.1.101 --quiet -" )
+    EXEC( "/home/morphs/WORKSPACE/NODE/Commands/YouTube/Play.py '_dypVv0NouI'" )
 }
 module.exports = PRESS_BUTTON_4;

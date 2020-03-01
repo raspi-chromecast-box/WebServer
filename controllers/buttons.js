@@ -16,7 +16,7 @@ const PRESS_BUTTON_12 = require( "./button_functions/press_12.js" );
 module.exports.press = ( req , res )=> {
 	console.log( "POST --> /button" );
 	if ( req.body ) {
-		console..log( req.body );
+		console.log( req.body );
 		if ( req.body.button_number ) {
 			if ( req.body.button_number === "1" || req.body.button_number === 1 ) {
 				PRESS_BUTTON_1();

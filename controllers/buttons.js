@@ -75,37 +75,37 @@ module.exports.press = ( req , res )=> {
 				PRESS_BUTTON_1();
 			}
 			if ( req.body.button_number === "2" || req.body.button_number === 2 ) {
-				PRESS_BUTTON_1();
+				PRESS_BUTTON_2();
 			}
 			if ( req.body.button_number === "3" || req.body.button_number === 3 ) {
-				PRESS_BUTTON_1();
+				PRESS_BUTTON_3();
 			}
 			if ( req.body.button_number === "4" || req.body.button_number === 4 ) {
-				PRESS_BUTTON_1();
+				PRESS_BUTTON_4();
 			}
 			if ( req.body.button_number === "5" || req.body.button_number === 5 ) {
-				PRESS_BUTTON_1();
+				PRESS_BUTTON_5();
 			}
 			if ( req.body.button_number === "6" || req.body.button_number === 6 ) {
-				PRESS_BUTTON_1();
+				PRESS_BUTTON_6();
 			}
 			if ( req.body.button_number === "7" || req.body.button_number === 7 ) {
-				PRESS_BUTTON_1();
+				PRESS_BUTTON_7();
 			}
 			if ( req.body.button_number === "8" || req.body.button_number === 8 ) {
-				PRESS_BUTTON_1();
+				PRESS_BUTTON_8();
 			}
 			if ( req.body.button_number === "9" || req.body.button_number === 9 ) {
-				PRESS_BUTTON_1();
+				PRESS_BUTTON_9();
 			}
 			if ( req.body.button_number === "10" || req.body.button_number === 10 ) {
-				PRESS_BUTTON_1();
+				PRESS_BUTTON_10();
 			}
 			if ( req.body.button_number === "11" || req.body.button_number === 11 ) {
-				PRESS_BUTTON_1();
+				PRESS_BUTTON_11();
 			}
 			if ( req.body.button_number === "12" || req.body.button_number === 12 ) {
-				PRESS_BUTTON_1();
+				PRESS_BUTTON_12();
 			}
 		}
 	}

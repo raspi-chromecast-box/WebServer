@@ -1,4 +1,23 @@
 function sendJSONResponse( res , status , content ) { if ( status ) { res.status( status ); } res.json( content ); }
+const child = require( "child_process" );
+const exec = child.execSync;
+
+function EXEC( command ) {
+	try {
+		let result;
+		try { result = exec( command ); }
+		catch( error ) { console.log( error ); return false; }
+		if ( result ) {
+			result = result.toString();
+			if ( result ) {
+				result = result.trim();
+				console.log( result );
+			}
+		}
+		return true;
+	}
+};
+
 
 module.exports.press = ( req , res )=> {
 	console.log( "POST --> /button" );
@@ -11,6 +30,7 @@ module.exports.press_1 = ( req , res )=> {
 	console.log( "GET --> /button/1" );
 	res.status( 200 );
 	res.json( { result: "Pressed Button 1!" } );
+	EXEC( "/home/morphs/WORKSPACE/NODE/Commands/Spotify.py" )
 };
 
 module.exports.press_2 = ( req , res )=> {

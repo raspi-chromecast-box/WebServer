@@ -31,7 +31,7 @@ module.exports.press_1 = ( req , res )=> {
 	console.log( "GET --> /button/1" );
 	res.status( 200 );
 	res.json( { result: "Pressed Button 1!" } );
-	EXEC( "/home/morphs/WORKSPACE/NODE/Commands/Spotify.py" )
+	EXEC( "/home/morphs/WORKSPACE/NODE/Commands/Spotify/Play.py" )
 };
 
 module.exports.press_2 = ( req , res )=> {

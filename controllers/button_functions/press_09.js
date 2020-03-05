@@ -1,19 +1,20 @@
 const child = require( "child_process" );
-const exec = child.execSync;
+const exec = child.exec;
 
 function EXEC( command ) {
     try {
-        let result;
-        try { result = exec( command ); }
-        catch( error ) { console.log( error ); return false; }
-        if ( result ) {
-            result = result.toString();
-            if ( result ) {
-                result = result.trim();
-                console.log( result );
+        exec( command , ( error , stdout , stderr ) => {
+            if ( error ) {
+                console.log(`exec error: ${error}`);
+                return false;
             }
-        }
-        return true;
+            if ( stderr ) {
+                console.log(`stderr: ${stderr}`);
+                return false;
+            }
+            console.log(`stdout: ${stdout}`);
+            return true;
+        });
     }
     catch( error ) { console.log( error ); return false; }
 };

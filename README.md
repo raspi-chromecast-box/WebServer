@@ -13,3 +13,6 @@
 10. **Pause / Resume**
 11. **Stop**
 12. **Suffle / Linear**
+
+
+### https://github.com/balloob/pychromecast/blob/master/pychromecast/controllers/media.py ?

@@ -1,5 +1,6 @@
 const child = require( "child_process" );
 const exec = child.exec;
+const RMU = require( "redis-manager-utils" );
 
 function EXEC( command ) {
 	try {
@@ -21,6 +22,38 @@ function EXEC( command ) {
 
 
 function PRESS_BUTTON_5() {
-	EXEC( "/home/morphs/WORKSPACE/NODE/Commands/Spotify/Play.py --uri 'spotify:playlist:4PYhhcYPgUi9LXU9uiEATe'" )
+	return new Promise( async function( resolve , reject ) {
+		try {
+			console.log( "Global Next" );
+
+
+			const db = new RMU( 1 );
+			await db.init();
+
+			const last_action = await db.listGetByIndex( "STATE.ACTIONS" , "-1" );
+			switch ( last_action ) {
+				case "SPOTIFY":
+					EXEC( `/home/morphs/WORKSPACE/NODE/Commands/Spotify/Next.py` );
+					break;
+				case "YOUTUBE":
+					break;
+				case "TWITCH":
+					break;
+				case "ODYSSEY":
+					break;
+				case "HULU":
+					break;
+				case "NETFLIX":
+					break;
+				case "DISNEY":
+					break;
+				default:
+					break;
+			}
+			resolve( true );
+			return;
+		}
+		catch( error ) { console.log( error ); reject( error ); return; }
+	});
 }
 module.exports = PRESS_BUTTON_5;

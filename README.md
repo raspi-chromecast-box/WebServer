@@ -16,3 +16,7 @@
 
 
 ### https://github.com/balloob/pychromecast/blob/master/pychromecast/controllers/media.py ?
+
+## Rewrite to Happen
+### 6 Needs to be Stop
+### 7 Needs to Pause / Resume

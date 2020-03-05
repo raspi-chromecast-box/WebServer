@@ -1,5 +1,6 @@
 const child = require( "child_process" );
 const exec = child.exec;
+const RMU = require( "redis-manager-utils" );
 
 function EXEC( command ) {
 	try {
@@ -20,7 +21,37 @@ function EXEC( command ) {
 };
 
 function PRESS_BUTTON_4() {
-	//EXEC( "youtube-dl -o - https://www.youtube.com/watch?v=_dypVv0NouI | castnow --address 192.168.1.101 --quiet -" )
-	EXEC( "/home/morphs/WORKSPACE/NODE/Commands/YouTube/Play.py '_dypVv0NouI'" )
+	return new Promise( async function( resolve , reject ) {
+		try {
+			console.log( "Global Previous" );
+
+			const db = new RMU( 1 );
+			await db.init();
+
+			const last_action = await db.listGetByIndex( "STATE.ACTIONS" , "-1" );
+			switch ( last_action ) {
+				case "SPOTIFY":
+					EXEC( `/home/morphs/WORKSPACE/NODE/Commands/Spotify/Previous.py` );
+					break;
+				case "YOUTUBE":
+					break;
+				case "TWITCH":
+					break;
+				case "ODYSSEY":
+					break;
+				case "HULU":
+					break;
+				case "NETFLIX":
+					break;
+				case "DISNEY":
+					break;
+				default:
+					break;
+			}
+			resolve( true );
+			return;
+		}
+		catch( error ) { console.log( error ); reject( error ); return; }
+	});
 }
 module.exports = PRESS_BUTTON_4;

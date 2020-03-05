@@ -41,11 +41,16 @@ app.use( bodyParser.urlencoded( { extended: true } ) );
 //     res.render( "youtubeAuth.html" );
 // });
 
+// function sendJSONResponse( res , status , content ) { if ( status ) { res.status( status ); } res.json( content ); }
 
 // Main-Routes
 app.get( "/" , function( req , res , next ) {
-		res.render( "index.html" );
+	res.render( "index.html" );
 });
+
+// app.get( "/test" , function( req , res , next ) {
+//     sendJSONResponse( res , 200 , { "wadu": "wadu" } );
+// });
 
 // app.get( "/form" , function( req , res , next ) {
 //     res.render( "form_controller.html" );

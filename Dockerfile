@@ -3,6 +3,8 @@ RUN apk add bash
 RUN apk add nano
 RUN apk add nodejs
 
+COPY JoyStickInputDocker.py /home/
+
 ENTRYPOINT [ "/bin/bash" ]
 
 

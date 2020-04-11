@@ -13,46 +13,29 @@ const PRESS_BUTTON_10 = require( "./button_functions/press_10.js" );
 const PRESS_BUTTON_11 = require( "./button_functions/press_11.js" );
 const PRESS_BUTTON_12 = require( "./button_functions/press_12.js" );
 
+const BUTTON_PRESS_MAP = {
+	1: PRESS_BUTTON_1 ,
+	2: PRESS_BUTTON_2 ,
+	3: PRESS_BUTTON_3 ,
+	4: PRESS_BUTTON_4 ,
+	5: PRESS_BUTTON_5 ,
+	6: PRESS_BUTTON_6 ,
+	7: PRESS_BUTTON_7 ,
+	8: PRESS_BUTTON_8 ,
+	9: PRESS_BUTTON_9 ,
+	10: PRESS_BUTTON_10 ,
+	11: PRESS_BUTTON_11 ,
+	12: PRESS_BUTTON_12 ,
+}
+
 module.exports.press = ( req , res )=> {
 	console.log( "POST --> /button" );
 	if ( req.body ) {
 		console.log( req.body );
 		if ( req.body.button_number ) {
-			if ( req.body.button_number === "1" || req.body.button_number === 1 ) {
-				PRESS_BUTTON_1();
-			}
-			if ( req.body.button_number === "2" || req.body.button_number === 2 ) {
-				PRESS_BUTTON_2();
-			}
-			if ( req.body.button_number === "3" || req.body.button_number === 3 ) {
-				PRESS_BUTTON_3();
-			}
-			if ( req.body.button_number === "4" || req.body.button_number === 4 ) {
-				PRESS_BUTTON_4();
-			}
-			if ( req.body.button_number === "5" || req.body.button_number === 5 ) {
-				PRESS_BUTTON_5();
-			}
-			if ( req.body.button_number === "6" || req.body.button_number === 6 ) {
-				PRESS_BUTTON_6();
-			}
-			if ( req.body.button_number === "7" || req.body.button_number === 7 ) {
-				PRESS_BUTTON_7();
-			}
-			if ( req.body.button_number === "8" || req.body.button_number === 8 ) {
-				PRESS_BUTTON_8();
-			}
-			if ( req.body.button_number === "9" || req.body.button_number === 9 ) {
-				PRESS_BUTTON_9();
-			}
-			if ( req.body.button_number === "10" || req.body.button_number === 10 ) {
-				PRESS_BUTTON_10();
-			}
-			if ( req.body.button_number === "11" || req.body.button_number === 11 ) {
-				PRESS_BUTTON_11();
-			}
-			if ( req.body.button_number === "12" || req.body.button_number === 12 ) {
-				PRESS_BUTTON_12();
+			const button_number = parseInt( req.body.button_number );
+			if ( BUTTON_PRESS_MAP[ button_number ] ) {
+				BUTTON_PRESS_MAP[ button_number ]();
 			}
 		}
 	}

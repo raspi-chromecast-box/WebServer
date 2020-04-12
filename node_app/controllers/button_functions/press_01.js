@@ -38,7 +38,7 @@ function PRESS_BUTTON_1() {
 			//if ( state_action_length > 100 ) { await db.listLPOP( "STATE.ACTIONS" ); }
 
 			// 4.) Exec Command / Action
-			EXEC( `/home/morphs/WORKSPACE/NODE/Commands/Spotify/Play.py --uri '${ next_playlist[ 0 ] }'` );
+			EXEC( `/home/node_app/commands/Spotify/Play.py --uri '${ next_playlist[ 0 ] }'` );
 
 			// 5.) Save State
 			//await db.keySet( "STATE" , JSON.stringify( state ) );

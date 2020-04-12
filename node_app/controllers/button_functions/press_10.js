@@ -36,13 +36,13 @@ function PRESS_BUTTON_10() {
 			switch ( last_action ) {
 				case "SPOTIFY":
 					if ( paused_resumed === "RESUMED" ) {
-						EXEC( `/home/morphs/WORKSPACE/NODE/Commands/Spotify/Pause.py` );
+						EXEC( `/home/node_app/commands/Spotify/Play.py` );
 						await db.keySet( "STATE.PAUSED_RESUMED" , "PAUSED" );
 						resolve();
 						return;
 					}
 					if ( paused_resumed === "PAUSED" ) {
-						EXEC( `/home/morphs/WORKSPACE/NODE/Commands/Spotify/Resume.py` );
+						EXEC( `/home/node_app/commands/Spotify/Resume.py` );
 						await db.keySet( "STATE.PAUSED_RESUMED" , "RESUMED" );
 						resolve();
 						return;

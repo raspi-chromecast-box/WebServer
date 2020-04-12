@@ -1,0 +1,18 @@
+# Player Controls
+# Need to Skip "Finding" ChromeCast Everytime unless , the IP is "invalid somehow"
+# https://github.com/plamere/spotipy/blob/13109c1613594e098f5ecddc64edbf465306052b/spotipy/client.py#L1276
+# also https://github.com/plamere/spotipy/tree/master/examples
+# ==========================================================================================================
+#client.shuffle( True )
+#client.shuffle( False )
+
+# client.pause_playback()
+# client.start_playback()
+
+# client.previous_track()
+# client.next_track()
+
+# client.current_playback()
+# client.currently_playing()
+# ==========================================================================================================
+# client.next_track()

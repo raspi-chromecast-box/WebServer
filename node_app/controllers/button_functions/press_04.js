@@ -31,7 +31,7 @@ function PRESS_BUTTON_4() {
 			const last_action = await db.listGetByIndex( "STATE.ACTIONS" , "-1" );
 			switch ( last_action ) {
 				case "SPOTIFY":
-					EXEC( `/home/morphs/WORKSPACE/NODE/Commands/Spotify/Previous.py` );
+					EXEC( `/home/node_app/commands/Spotify/Previous.py` );
 					break;
 				case "YOUTUBE":
 					break;

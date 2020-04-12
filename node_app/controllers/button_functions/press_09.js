@@ -20,6 +20,6 @@ function EXEC( command ) {
 };
 
 function PRESS_BUTTON_9() {
-    EXEC( "/home/morphs/WORKSPACE/NODE/Commands/Spotify/Play.py --uri 'spotify:playlist:4PYhhcYPgUi9LXU9uiEATe'" )
+    EXEC( "/home/node_app/commands/Spotify/Play.py --uri 'spotify:playlist:4PYhhcYPgUi9LXU9uiEATe'" )
 }
 module.exports = PRESS_BUTTON_9;

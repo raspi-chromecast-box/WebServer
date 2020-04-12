@@ -37,8 +37,8 @@ function PRESS_BUTTON_1() {
 			//const state_action_length = parseInt( await db.listGetLength( "STATE.ACTIONS" ) );
 			//if ( state_action_length > 100 ) { await db.listLPOP( "STATE.ACTIONS" ); }
 
-			// 4.) Exec Command / Action
-			EXEC( `/home/node_app/commands/Spotify/Play.py --uri '${ next_playlist[ 0 ] }'` );
+			const chromecast_output_ip = await db.keyGet( "STATE.CHROMECAST_OUTPUT.IP" );
+			EXEC( `/home/node_app/commands/Spotify/Play.py '${chromecast_output_ip}' '${ next_playlist[ 0 ] }' true` );
 
 			// 5.) Save State
 			//await db.keySet( "STATE" , JSON.stringify( state ) );

@@ -1,10 +1,3 @@
-#!/usr/bin/env python3
-
-"""
-pip install pychromecast
-pip install spotify-token
-pip install git+https://github.com/plamere/spotipy.git
-"""
 import http.client as http_client
 import time
 import os
@@ -14,6 +7,9 @@ from pychromecast import Chromecast
 from pychromecast.controllers.spotify import SpotifyController
 import spotify_token as st
 import spotipy
+
+def string_to_bool( str ):
+	return str.lower() in ( "yes" , "true" , "t" , "1" )
 
 def try_to_connect_to_redis():
 	try:
@@ -71,61 +67,65 @@ def RefreshSpotifyTokenIfNecessary( redis_connection ):
 		print( e )
 		return False
 
+def play()
+	try:
+		output_chromecast_ip = sys.argv[ 1 ]
+		uri_to_play = sys.argv[ 2 ]
+		shuffle = string_to_bool( sys.argv[ 3 ] )
+		redis_connection = try_to_connect_to_redis()
+		spotify_token_info = RefreshSpotifyTokenIfNecessary(  )
+		cast = Chromecast( output_chromecast_ip )
+		cast.wait()
+		client = spotipy.Spotify( auth=spotify_token_info[ "access_token" ] )
+		sp = SpotifyController( spotify_token_info[ "access_token" ] , spotify_token_info[ "seconds_left" ] )
+		cast.register_handler( sp )
+		sp.launch_app()
+		if not sp.is_launched and not sp.credential_error:
+			print('Failed to launch spotify controller due to timeout')
+			sys.exit(1)
+		if not sp.is_launched and sp.credential_error:
+			print('Failed to launch spotify controller due to credential error')
+			sys.exit(1)
 
-def try_to_play()
-	output_chromecast_ip = sys.argv[ 1 ]
-	uri_to_play = sys.argv[ 2 ]
-	shuffle = sys.argv[ 3 ]
-	redis_connection = try_to_connect_to_redis()
-	spotify_token_info = RefreshSpotifyTokenIfNecessary(  )
-	cast = Chromecast( output_chromecast_ip )
-	cast.wait()
-	client = spotipy.Spotify( auth=spotify_token_info[ "access_token" ] )
-	sp = SpotifyController( spotify_token_info[ "access_token" ] , spotify_token_info[ "seconds_left" ] )
-	cast.register_handler( sp )
-	sp.launch_app()
-	if not sp.is_launched and not sp.credential_error:
-		print('Failed to launch spotify controller due to timeout')
-		sys.exit(1)
-	if not sp.is_launched and sp.credential_error:
-		print('Failed to launch spotify controller due to credential error')
-		sys.exit(1)
+		devices_available = client.devices()
+		spotify_device_id = None
+		for device in devices_available['devices']:
+			if device['id'] == sp.device:
+				spotify_device_id = device['id']
+				break
+		if not spotify_device_id:
+			print('No device with id "{}" known by Spotify'.format(sp.device))
+			print('Known devices: {}'.format(devices_available['devices']))
+			sys.exit(1)
 
-	devices_available = client.devices()
-	spotify_device_id = None
-	for device in devices_available['devices']:
-		if device['id'] == sp.device:
-			spotify_device_id = device['id']
-			break
-	if not spotify_device_id:
-		print('No device with id "{}" known by Spotify'.format(sp.device))
-		print('Known devices: {}'.format(devices_available['devices']))
-		sys.exit(1)
+		# # Start playback
+		if uri_to_play.find('track') > 0:
+			client.start_playback( device_id=spotify_device_id , uris=uri_to_play )
+		else:
+			client.start_playback( device_id=spotify_device_id , context_uri=uri_to_play )
 
-	# # Start playback
-	if uri_to_play.find('track') > 0:
-		client.start_playback( device_id=spotify_device_id , uris=uri_to_play )
-	else:
-		client.start_playback( device_id=spotify_device_id , context_uri=uri_to_play )
+		time.sleep( 2 )
+		client.shuffle( shuffle )
+		return True
+	except Exception as e:
+		print( "Couldn't Load URI and Play Spotify" )
+		print( e )
+		return False
 
-	time.sleep( 2 )
-	client.shuffle( shuffle )
+def try_run_block( options ):
+	for i in range( number_of_tries ):
+		attempt = options[ "function_reference" ]()
+		if attempt is not False:
+			return attempt
+		print( f"Couldn't Run '{ options[ 'task_name' ] }', Sleeping for { str( options[ 'sleep_inbetween_seconds' ] ) } Seconds" )
+		time.sleep( options[ 'sleep_inbetween_seconds' ] )
+	if options[ 'reboot_on_failure' ] == True:
+		os.system( "reboot -f" )
 
-# Player Controls
-# Need to Skip "Finding" ChromeCast Everytime unless , the IP is "invalid somehow"
-# https://github.com/plamere/spotipy/blob/13109c1613594e098f5ecddc64edbf465306052b/spotipy/client.py#L1276
-# also https://github.com/plamere/spotipy/tree/master/examples
-# ==========================================================================================================
-#client.shuffle( True )
-#client.shuffle( False )
-
-# client.pause_playback()
-# client.start_playback()
-
-# client.previous_track()
-# client.next_track()
-
-# client.current_playback()
-# client.currently_playing()
-# ==========================================================================================================
-# client.next_track()
+try_run_block({
+	"task_name": "Spotify Play" ,
+	"number_of_tries": 5 ,
+	"sleep_inbetween_seconds": 1 ,
+	"function_reference": play ,
+	"reboot_on_failure": True
+	})

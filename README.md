@@ -20,3 +20,18 @@
 ## Rewrite to Happen
 ### 6 Needs to be Stop
 ### 7 Needs to Pause / Resume
+
+
+## Docker Build Command
+
+```
+sudo docker build -t alpine-web-server .
+```
+
+## Docker Run Command
+```
+sudo docker run -dit --restart='always' \
+-v ~/.config/personal/raspi_chromecast_box.json:/home/.config/personal/raspi_chromecast_box.json \
+--network host \
+alpine-web-server
+```

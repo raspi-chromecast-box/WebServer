@@ -32,7 +32,7 @@ def GenerateSpotifyToken( options ):
 		seconds_left = data[ 1 ] - int( time.time() )
 		result = {
 			"access_token": access_token ,
-			"expire_time": data[ 1 ]
+			"expire_time": data[ 1 ] ,
 			"seconds_left": seconds_left
 		}
 		return result

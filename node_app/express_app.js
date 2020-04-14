@@ -44,9 +44,14 @@ app.use( bodyParser.urlencoded( { extended: true } ) );
 // function sendJSONResponse( res , status , content ) { if ( status ) { res.status( status ); } res.json( content ); }
 
 // Main-Routes
-app.get( "/" , function( req , res , next ) {
+app.get( "/" , ( req , res , next ) => {
 	res.render( "index.html" );
 });
+
+app.get( "/ping" , ( req , res , next ) => {
+    res.json( { "result": "pong" } );
+});
+
 
 // app.get( "/test" , function( req , res , next ) {
 //     sendJSONResponse( res , 200 , { "wadu": "wadu" } );

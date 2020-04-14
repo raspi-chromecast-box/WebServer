@@ -1,24 +1,6 @@
-const child = require( "child_process" );
-const exec = child.exec;
 const RMU = require( "redis-manager-utils" );
-
-function EXEC( command ) {
-	try {
-		exec( command , ( error , stdout , stderr ) => {
-			if ( error ) {
-				console.log(`exec error: ${error}`);
-				return false;
-			}
-			if ( stderr ) {
-				console.log(`stderr: ${stderr}`);
-				return false;
-			}
-			console.log(`stdout: ${stdout}`);
-			return true;
-		});
-	}
-	catch( error ) { console.log( error ); return false; }
-};
+const EXEC = require( "../../utils.js" ).exec;
+const path = require( "path" );
 
 function PRESS_BUTTON_1() {
 	return new Promise( async function( resolve , reject ) {
@@ -38,7 +20,10 @@ function PRESS_BUTTON_1() {
 			//if ( state_action_length > 100 ) { await db.listLPOP( "STATE.ACTIONS" ); }
 
 			const chromecast_output_ip = await db.keyGet( "STATE.CHROMECAST_OUTPUT.IP" );
-			EXEC( `/home/node_app/commands/Spotify/Play.py '${chromecast_output_ip}' '${ next_playlist[ 0 ] }' true` );
+
+			const script_path = path.join( path.dirname( require.main.filename ) , "commands" , "Spotify" , "Play.py" );
+			console.log( script_path );
+			EXEC( `${script_path} '${chromecast_output_ip}' '${ next_playlist[ 0 ] }' true` );
 
 			// 5.) Save State
 			//await db.keySet( "STATE" , JSON.stringify( state ) );

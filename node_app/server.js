@@ -14,10 +14,16 @@ process.on( "uncaughtException" , function( err ) {
 	process.exit( 1 );
 });
 
-
 ( async ()=> {
 
-	const config = require( path.join( process.env.HOME , ".config" , "personal" , "raspi_chromecast_box.json" ) );
+	const environment = process.argv[ 2 ] || 'prod';
+	module.exports.environment = environment;
+	if ( environment === "dev" ) {
+		const config = require( path.join( process.env.HOME , ".config" , "personal" , "raspi_chromecast_box.json" ) );
+	}
+	else {
+		const config = require( path.join( "home" , ".config" , "personal" , "raspi_chromecast_box.json" ) );
+	}
 	await require( "./utils.js" ).store_config_to_redis( config );
 	const port = config.config.express.port || 9696;
 	const express_app = require( "./express_app.js" );

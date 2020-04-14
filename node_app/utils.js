@@ -1,4 +1,7 @@
+const child = require( "child_process" );
+const exec = child.exec;
 const RMU = require( "redis-manager-utils" );
+
 function STORE_CONFIG_TO_REDIS( config ) {
 	return new Promise( async ( resolve , reject ) => {
 		try {
@@ -21,3 +24,22 @@ function STORE_CONFIG_TO_REDIS( config ) {
 	});
 }
 module.exports.store_config_to_redis = STORE_CONFIG_TO_REDIS;
+
+function EXEC( command ) {
+	try {
+		exec( command , ( error , stdout , stderr ) => {
+			if ( error ) {
+				console.log(`exec error: ${error}`);
+				return false;
+			}
+			if ( stderr ) {
+				console.log(`stderr: ${stderr}`);
+				return false;
+			}
+			console.log(`stdout: ${stdout}`);
+			return true;
+		});
+	}
+	catch( error ) { console.log( error ); return false; }
+};
+module.exports.exec = EXEC;

@@ -62,7 +62,7 @@ def RefreshSpotifyTokenIfNecessary( redis_connection ):
 			spotify_token_info = {}
 		if "seconds_left" not in spotify_token_info:
 			spotify_token_info = GenerateSpotifyToken( spotify_personal )
-			redis_connection.set( "SPOTIFY.TOKEN_INFO" , json.dumps( spotify_token_info ) )
+			redis_connection.set( "STATE.SPOTIFY.TOKEN_INFO" , json.dumps( spotify_token_info ) )
 			return spotify_token_info
 
 		time_now = int( time.time() )
@@ -84,7 +84,6 @@ def play():
 	try:
 		output_chromecast_ip = sys.argv[ 1 ]
 		uri_to_play = sys.argv[ 2 ]
-		uri_to_play = [ uri_to_play ]
 		shuffle = sys.argv[ 3 ]
 		if type( shuffle != bool ):
 			shuffle = string_to_bool( shuffle )
@@ -116,9 +115,9 @@ def play():
 
 		# # Start playback
 		if uri_to_play.find('track') > 0:
-			client.start_playback( device_id=spotify_device_id , uris=uri_to_play )
+			client.start_playback( device_id=spotify_device_id , uris=[ uri_to_play ] )
 		else:
-			client.start_playback( device_id=spotify_device_id , context_uri=uri_to_play )
+			client.start_playback( device_id=spotify_device_id , context_uri=[ uri_to_play ] )
 
 		time.sleep( 2 )
 		client.shuffle( shuffle )

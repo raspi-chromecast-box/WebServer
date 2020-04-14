@@ -74,7 +74,7 @@ def play():
 		uri_to_play = sys.argv[ 2 ]
 		shuffle = string_to_bool( sys.argv[ 3 ] )
 		redis_connection = try_to_connect_to_redis()
-		spotify_token_info = RefreshSpotifyTokenIfNecessary(  )
+		spotify_token_info = RefreshSpotifyTokenIfNecessary( redis_connection )
 		cast = Chromecast( output_chromecast_ip )
 		cast.wait()
 		client = spotipy.Spotify( auth=spotify_token_info[ "access_token" ] )

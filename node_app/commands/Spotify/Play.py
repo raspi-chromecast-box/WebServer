@@ -3,10 +3,12 @@ import http.client as http_client
 import time
 import os
 import sys
+import json
 import pychromecast
 from pychromecast import Chromecast
 from pychromecast.controllers.spotify import SpotifyController
 import spotify_token as st
+import redis
 import spotipy
 
 def string_to_bool( input_string ):
@@ -45,10 +47,19 @@ def GenerateSpotifyToken( options ):
 
 def RefreshSpotifyTokenIfNecessary( redis_connection ):
 	try:
-		spotify_personal = redis_connection.get( "SPOTIFY.PERSONAL" )
-		spotify_personal = json.loads( spotify_personal )
-		spotify_token_info = redis_connection.get( "SPOTIFY.TOKEN_INFO" )
-		spotify_token_info = json.loads( spotify_token_info )
+		try:
+			spotify_personal = redis_connection.get( "PERSONAL.SPOTIFY" )
+			spotify_personal = json.loads( spotify_personal )
+		except Exception as e:
+			print( "No Spotify Personal Info Saved to Redis" )
+			print( e )
+			return False
+		try:
+			spotify_token_info = redis_connection.get( "STATE.SPOTIFY.TOKEN_INFO" )
+			spotify_token_info = json.loads( spotify_token_info )
+		except Exception as e:
+			print( "No Spotify Token Info Saved to Redis" )
+			spotify_token_info = {}
 		if "seconds_left" not in spotify_token_info:
 			spotify_token_info = GenerateSpotifyToken( spotify_personal )
 			redis_connection.set( "SPOTIFY.TOKEN_INFO" , json.dumps( spotify_token_info ) )
@@ -59,7 +70,7 @@ def RefreshSpotifyTokenIfNecessary( redis_connection ):
 		if spotify_token_info[ "seconds_left" ] < 300:
 			print( "Spotify Token is About to Expire in " + str( spotify_token_info[ "seconds_left" ] ) + " Seconds" )
 			spotify_token_info = GenerateSpotifyToken( spotify_personal )
-			redis_connection.set( "SPOTIFY.TOKEN_INFO" , json.dumps( spotify_token_info ) )
+			redis_connection.set( "STATE.SPOTIFY.TOKEN_INFO" , json.dumps( spotify_token_info ) )
 			return spotify_token_info
 		else:
 			print( "Spotify Token is Still Valid for " + str( spotify_token_info[ "seconds_left" ] ) + " Seconds" )

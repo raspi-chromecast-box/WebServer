@@ -73,7 +73,9 @@ def play():
 	try:
 		output_chromecast_ip = sys.argv[ 1 ]
 		uri_to_play = sys.argv[ 2 ]
-		shuffle = string_to_bool( sys.argv[ 3 ] )
+		shuffle = sys.argv[ 3 ]
+		if type( shuffle != bool ):
+			shuffle = string_to_bool( shuffle )
 		redis_connection = try_to_connect_to_redis()
 		spotify_token_info = RefreshSpotifyTokenIfNecessary( redis_connection )
 		cast = Chromecast( output_chromecast_ip )

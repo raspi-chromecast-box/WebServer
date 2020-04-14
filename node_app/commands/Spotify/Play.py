@@ -28,6 +28,7 @@ def try_to_connect_to_redis():
 def GenerateSpotifyToken( options ):
 	try:
 		print( "Generating Spotify Token" )
+		print( options )
 		data = st.start_session( options[ "username" ] , options[ "password" ] )
 		access_token = data[ 0 ]
 		seconds_left = data[ 1 ] - int( time.time() )
@@ -57,7 +58,7 @@ def RefreshSpotifyTokenIfNecessary( redis_connection ):
 		spotify_token_info[ "seconds_left" ] = spotify_token_info[ "expire_time" ] - time_now
 		if spotify_token_info[ "seconds_left" ] < 300:
 			print( "Spotify Token is About to Expire in " + str( spotify_token_info[ "seconds_left" ] ) + " Seconds" )
-			spotify_token_info = GenerateSpotifyToken()
+			spotify_token_info = GenerateSpotifyToken( spotify_personal )
 			redis_connection.set( "SPOTIFY.TOKEN_INFO" , json.dumps( spotify_token_info ) )
 			return spotify_token_info
 		else:

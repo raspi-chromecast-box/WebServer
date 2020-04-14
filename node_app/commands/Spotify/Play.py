@@ -68,7 +68,7 @@ def RefreshSpotifyTokenIfNecessary( redis_connection ):
 		print( e )
 		return False
 
-def play()
+def play():
 	try:
 		output_chromecast_ip = sys.argv[ 1 ]
 		uri_to_play = sys.argv[ 2 ]

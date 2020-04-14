@@ -48,9 +48,8 @@ def RefreshSpotifyTokenIfNecessary( redis_connection ):
 		spotify_personal = json.loads( spotify_personal )
 		spotify_token_info = redis_connection.get( "SPOTIFY.TOKEN_INFO" )
 		spotify_token_info = json.loads( spotify_token_info )
-
 		if "seconds_left" not in spotify_token_info:
-			spotify_token_info = GenerateSpotifyToken()
+			spotify_token_info = GenerateSpotifyToken( spotify_personal )
 			redis_connection.set( "SPOTIFY.TOKEN_INFO" , json.dumps( spotify_token_info ) )
 			return spotify_token_info
 

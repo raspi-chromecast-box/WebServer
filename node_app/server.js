@@ -14,7 +14,7 @@ process.on( "uncaughtException" , function( err ) {
 });
 
 
-( ()=> {
+( async ()=> {
 
 	const config = require( path.join( process.env.HOME , ".config" , "personal" , "raspi_chromecast_box.json" ) );
 	await require( "./utils.js" ).store_config_to_redis( config );

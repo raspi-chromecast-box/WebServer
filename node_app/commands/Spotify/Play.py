@@ -9,8 +9,9 @@ from pychromecast.controllers.spotify import SpotifyController
 import spotify_token as st
 import spotipy
 
-def string_to_bool( str ):
-	return str.lower() in ( "yes" , "true" , "t" , "1" )
+def string_to_bool( input_string ):
+	input_string = str( input_string )
+	return input_string.lower() in ( "yes" , "true" , "t" , "1" )
 
 def try_to_connect_to_redis():
 	try:

@@ -52,7 +52,7 @@ iterm2==1.11
 itomate==0.2.14
 itsdangerous==1.1.0
 jedi==0.13.3
-Jinja2==2.10.1
+Jinja2==2.11.3
 json5==0.9.3
 JSONFileOBJDB==0.1.0
 jsonschema==3.0.1

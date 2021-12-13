@@ -65,7 +65,7 @@ jupyterlab-server==1.0.7
 keyring==21.1.0
 kiwisolver==1.1.0
 logzero==1.5.0
-lxml==4.5.0
+lxml==4.6.5
 lyricwikia==0.1.9
 m3u8==0.5.4
 manly==0.4.1

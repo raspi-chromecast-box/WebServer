@@ -127,7 +127,7 @@ pymongo==3.10.1
 pyneqsys==0.5.6
 pyodesys==0.12.5
 pyparsing==2.4.2
-PyPDF2==1.26.0
+PyPDF2==1.27.5
 PyQt5==5.14.0
 PyQt5-sip==4.19.21
 pyrsistent==0.15.2

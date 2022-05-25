@@ -122,7 +122,7 @@ PyChromecast==4.1.0
 pycparser==2.19
 pycryptodome==3.8.2
 Pygments==2.5.2
-PyJWT==1.7.1
+PyJWT==2.4.0
 pymongo==3.10.1
 pyneqsys==0.5.6
 pyodesys==0.12.5

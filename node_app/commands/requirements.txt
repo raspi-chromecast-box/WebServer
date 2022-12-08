@@ -12,7 +12,7 @@ bottle==0.12.16
 cachetools==3.1.1
 casttube==0.2.0
 catt==0.10.2
-certifi==2019.6.16
+certifi==2022.12.7
 cffi==1.13.2
 chardet==3.0.4
 ChatterBot==1.0.5
